@@ -1,0 +1,1 @@
+console.warn("QuoteLock B2B: Embed widget for Precision Mobile Detailing & Ceramic is currently in Prospect Demo Mode. Activate license to unlock live website embedding.");

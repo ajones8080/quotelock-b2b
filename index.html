@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QuoteLock Systems | Instant-Quote Calculators & 5-Star Review Shields for Service Businesses</title>
+  <meta name="description" content="We install a custom 30-second Instant Price Estimator & 5-Star Review Shield for local service businesses—so you stop wasting hours on tire-kickers and start closing high-intent homeowners." />
+  <style>
+    :root { --primary: #2563eb; --dark: #0f172a; --card: #1e293b; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background: #0f172a; color: #f8fafc; line-height: 1.5; }
+    .nav { max-width: 1180px; margin: 0 auto; padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; }
+    .logo { font-size: 22px; font-weight: 900; color: #fff; display: flex; align-items: center; gap: 8px; }
+    .logo span { background: #2563eb; padding: 4px 10px; border-radius: 8px; font-size: 13px; }
+    .hero { max-width: 920px; margin: 56px auto 40px; text-align: center; padding: 0 20px; }
+    .pill { display: inline-block; background: rgba(56,189,248,0.15); color: #38bdf8; border: 1px solid rgba(56,189,248,0.3); padding: 6px 16px; border-radius: 999px; font-size: 13px; font-weight: 800; margin-bottom: 16px; }
+    .hero h1 { font-size: 46px; font-weight: 900; line-height: 1.15; margin-bottom: 18px; }
+    .hero p { font-size: 19px; color: #94a3b8; max-width: 760px; margin: 0 auto 28px; }
+    .section { max-width: 1180px; margin: 0 auto 64px; padding: 0 20px; }
+    .section-title { text-align: center; font-size: 30px; font-weight: 900; margin-bottom: 10px; }
+    .section-sub { text-align: center; color: #94a3b8; margin-bottom: 28px; }
+    .niche-pills { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 24px; }
+    .niche-btn { background: #1e293b; color: #e2e8f0; border: 1.5px solid #334155; padding: 10px 18px; border-radius: 999px; font-weight: 700; cursor: pointer; font-size: 14px; }
+    .niche-btn.active { background: #2563eb; color: #fff; border-color: #60a5fa; }
+    .sandbox-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 24px; align-items: start; }
+    @media (max-width: 900px) { .sandbox-grid { grid-template-columns: 1fr; } .hero h1 { font-size: 34px; } }
+    .panel { background: #1e293b; border: 1px solid #334155; border-radius: 18px; padding: 26px; }
+    .roi-row { display: flex; justify-content: space-between; margin: 14px 0; padding-bottom: 12px; border-bottom: 1px solid #334155; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; max-width: 860px; margin: 0 auto; }
+    .price-card { background: #1e293b; border: 2px solid #334155; border-radius: 20px; padding: 32px; }
+    .price-card.featured { border-color: #3b82f6; background: linear-gradient(160deg, #1e293b, #172554); }
+    .price-num { font-size: 44px; font-weight: 900; margin: 12px 0; }
+    .ul { list-style: none; margin: 18px 0 24px; }
+    .ul li { margin: 10px 0; font-size: 15px; color: #cbd5e1; }
+    .btn-primary { display: block; text-align: center; background: #22c55e; color: #052e16; text-decoration: none; padding: 15px; border-radius: 10px; font-weight: 900; font-size: 16px; }
+    .demo-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+    .demo-card { background: #1e293b; border: 1px solid #334155; border-radius: 14px; padding: 20px; }
+    .demo-card a { color: #38bdf8; font-weight: 700; text-decoration: none; margin-right: 14px; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="logo">⚡ QuoteLock Systems <span>B2B Conversion Engine</span></div>
+    <a href="#pricing" style="background:#2563eb; color:#fff; text-decoration:none; padding:10px 18px; border-radius:8px; font-weight:800; font-size:14px;">Get Installed in 24 Hrs →</a>
+  </nav>
+
+  <header class="hero">
+    <div class="pill">BUILT FOR HOME SERVICE & LOCAL TRADES</div>
+    <h1>Turn Silent Website Visitors Into Pre-Qualified Jobs & 5-Star Google Reviews</h1>
+    <p>We install a custom 30-second Instant Price Estimator & 5-Star Review Shield for local service businesses—so you stop wasting hours on tire-kickers and start closing high-intent homeowners.</p>
+  </header>
+
+  <section class="section">
+    <h2 class="section-title">Interactive Industry Sandbox — Test Any Trade Live</h2>
+    <p class="section-sub">Click your industry below to see how homeowners pre-qualify themselves and lock in quotes:</p>
+    <div class="niche-pills" id="nichePills">
+      <button class="niche-btn active" onclick="selectIndustry('pressure-washing', this)">💦 Pressure Washing & Exterior Cleaning</button><button class="niche-btn " onclick="selectIndustry('auto-detailing', this)">🚘 Mobile Auto Detailing & Ceramic Coating</button><button class="niche-btn " onclick="selectIndustry('epoxy-flooring', this)">🛡️ Epoxy Garage Floors & Concrete Coatings</button><button class="niche-btn " onclick="selectIndustry('house-cleaning', this)">✨ Residential & Move-Out Cleaning Services</button><button class="niche-btn " onclick="selectIndustry('roofing', this)">🏠 Roof Replacement & Storm Restoration</button><button class="niche-btn " onclick="selectIndustry('junk-removal', this)">🚛 Junk Removal, Cleanouts & Hauling</button><button class="niche-btn " onclick="selectIndustry('landscaping', this)">🌿 Landscaping, Mulch & Property Cleanups</button><button class="niche-btn " onclick="selectIndustry('painting', this)">🎨 Interior & Exterior House Painting</button>
+    </div>
+
+    <div class="sandbox-grid">
+      <div class="panel" style="background:#fff; color:#0f172a;">
+        <div id="liveCalcHeader" style="background:#2563eb; color:#fff; padding:18px; border-radius:12px; margin-bottom:18px;">
+          <div style="font-size:12px; font-weight:800; text-transform:uppercase; opacity:0.9;">Live Interactive Widget Preview</div>
+          <div id="calcTitle" style="font-size:22px; font-weight:900;"></div>
+        </div>
+        <div style="margin-bottom:16px;">
+          <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:6px;">
+            <span id="sliderLabel"></span>
+            <span id="sliderVal" style="color:#2563eb; font-weight:900;"></span>
+          </div>
+          <input type="range" id="demoSlider" style="width:100%; height:8px; accent-color:#2563eb;" />
+        </div>
+        <div id="demoTiers" style="display:grid; gap:8px; margin-bottom:16px;"></div>
+        <div id="demoAddons" style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:18px;"></div>
+        <div style="background:#ecfdf5; border:2px solid #10b981; border-radius:12px; padding:16px; text-align:center;">
+          <div style="font-size:12px; font-weight:800; color:#047857; text-transform:uppercase;">Instant Pre-Qualified Ballpark Range</div>
+          <div id="demoPriceOut" style="font-size:32px; font-weight:900; color:#065f46; margin:4px 0;"></div>
+          <div style="font-size:12px; color:#047857;">✓ Captures Name, Phone, Address & Timeline Before Revealing!</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div style="font-size:12px; font-weight:800; color:#38bdf8; text-transform:uppercase;">Why Business Owners Switch Immediately</div>
+        <h3 style="font-size:22px; font-weight:900; margin:8px 0 16px;">Calculate Your Missed Monthly Jobs</h3>
+        <label style="font-size:14px; color:#cbd5e1; display:block; margin-bottom:6px;">Extra Booked Jobs Per Month From Instant Quotes: <strong id="jobsVal" style="color:#38bdf8;">6 jobs/mo</strong></label>
+        <input type="range" id="jobsSlider" min="1" max="25" value="6" style="width:100%; accent-color:#38bdf8; margin-bottom:16px;" oninput="updateROI()" />
+        <div class="roi-row">
+          <span>Industry Avg. Job Ticket:</span>
+          <strong id="avgTicketDisplay">$420</strong>
+        </div>
+        <div class="roi-row">
+          <span>Added Monthly Revenue:</span>
+          <strong id="monthlyAddedDisplay" style="color:#4ade80; font-size:22px;">+$2,520/mo</strong>
+        </div>
+        <div class="roi-row">
+          <span>Added Annual Revenue:</span>
+          <strong id="annualAddedDisplay" style="color:#38bdf8; font-size:22px;">+$30,240/yr</strong>
+        </div>
+        <p style="font-size:13px; color:#94a3b8; margin-top:14px;">💡 National software tools like ResponsiBid ($179/mo) + NiceJob ($75/mo) charge contractors <strong>$254/month ($3,048/yr)</strong>. Our turnkey system delivers both for a fraction of the price.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Live Personalized Client Demos</h2>
+    <p class="section-sub">Explore live multi-tenant deployments generated by this system:</p>
+    <div class="demo-links">
+      
+        <div class="demo-card">
+          <div style="font-size:12px; color:#38bdf8; font-weight:800; text-transform:uppercase;">Austin, TX • pressure-washing (🔒 Demo Mode)</div>
+          <div style="font-size:18px; font-weight:800; margin:6px 0 12px;">Apex Exterior & Pressure Washing</div>
+          <div>
+            <a href="demo/apex-pressure-washing/index.html">🎯 Full Prospect Audit Pitch</a>
+            <a href="app/apex-pressure-washing/quote.html">⚡ Quote App</a>
+            <a href="app/apex-pressure-washing/review.html">⭐ Review Shield</a>
+          </div>
+        </div>
+      
+        <div class="demo-card">
+          <div style="font-size:12px; color:#38bdf8; font-weight:800; text-transform:uppercase;">Scottsdale, AZ • auto-detailing (🔒 Demo Mode)</div>
+          <div style="font-size:18px; font-weight:800; margin:6px 0 12px;">Precision Mobile Detailing & Ceramic</div>
+          <div>
+            <a href="demo/precision-mobile-detail/index.html">🎯 Full Prospect Audit Pitch</a>
+            <a href="app/precision-mobile-detail/quote.html">⚡ Quote App</a>
+            <a href="app/precision-mobile-detail/review.html">⭐ Review Shield</a>
+          </div>
+        </div>
+      
+        <div class="demo-card">
+          <div style="font-size:12px; color:#38bdf8; font-weight:800; text-transform:uppercase;">Charlotte, NC • epoxy-flooring (🔒 Demo Mode)</div>
+          <div style="font-size:18px; font-weight:800; margin:6px 0 12px;">Titan 1-Day Garage Floors</div>
+          <div>
+            <a href="demo/titan-garage-coatings/index.html">🎯 Full Prospect Audit Pitch</a>
+            <a href="app/titan-garage-coatings/quote.html">⚡ Quote App</a>
+            <a href="app/titan-garage-coatings/review.html">⭐ Review Shield</a>
+          </div>
+        </div>
+      
+    </div>
+  </section>
+
+  <section class="section" id="pricing">
+    <h2 class="section-title">Simple, High-ROI Installation Packages</h2>
+    <p class="section-sub">Compare to ResponsiBid ($179/mo) + NiceJob ($75/mo) = $254/month.</p>
+    <div class="pricing-grid">
+      <div class="price-card featured">
+        <div style="font-size:12px; font-weight:800; color:#38bdf8; text-transform:uppercase;">Most Popular • Managed Turnkey</div>
+        <div style="font-size:22px; font-weight:800; margin-top:6px;">Done-For-You Setup + Hosting</div>
+        <div class="price-num">$249 <span style="font-size:16px; font-weight:500; color:#94a3b8;">setup + $49/mo</span></div>
+        <ul class="ul">
+          <li>✓ Custom Instant-Quote Calculator calibrated to your exact pricing</li>
+          <li>✓ 1-Line Website Embed Widget + Standalone Google Profile Link</li>
+          <li>✓ 5-Star Google Review Booster + Private Complaint Shield</li>
+          <li>✓ Printable Counter / Truck QR Code Review Cards</li>
+          <li>✓ Instant SMS & Email Lead Notifications + Unlimited Hosting</li>
+        </ul>
+        <a href="mailto:hello@example.com?subject=Order%20QuoteLock%20Managed%20Setup" class="btn-primary">Claim Your 24-Hour Installation →</a>
+      </div>
+      <div class="price-card">
+        <div style="font-size:12px; font-weight:800; color:#94a3b8; text-transform:uppercase;">Zero Monthly Fees</div>
+        <div style="font-size:22px; font-weight:800; margin-top:6px;">Lifetime License Buyout</div>
+        <div class="price-num">$399 <span style="font-size:16px; font-weight:500; color:#94a3b8;">one-time payment</span></div>
+        <ul class="ul">
+          <li>✓ Everything in the Managed Turnkey Package</li>
+          <li>✓ Zero recurring monthly fees ever</li>
+          <li>✓ Full source files + lifetime hosted link included</li>
+          <li>✓ 2 Free annual pricing updates included</li>
+        </ul>
+        <a href="mailto:hello@example.com?subject=Order%20QuoteLock%20Lifetime%20Buyout" class="btn-primary" style="background:#3b82f6; color:#fff;">Order Lifetime Buyout →</a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const INDUSTRIES = {"pressure-washing":{"name":"Pressure Washing & Exterior Cleaning","icon":"💦","unitLabel":"Approximate Exterior / Driveway Size","minBase":175,"avgTicket":420,"slider":{"label":"Estimated Cleaning Area (Sq. Ft.)","min":500,"max":5000,"step":250,"default":1500,"ratePerUnit":0.16},"tiers":[{"id":"standard","name":"Standard Driveway & Walkway Wash","multiplier":1,"desc":"High-pressure surface cleaner + post-treatment rinse"},{"id":"house-wash","name":"Full Soft-Wash House Siding + Driveway","multiplier":1.55,"desc":"Low-pressure algaecide soft-wash + concrete cleaning"},{"id":"ultimate","name":"Total Property Revival (House, Roof, Driveway & Patio)","multiplier":2.2,"desc":"Complete exterior soft-wash, roof treatment, and concrete brightening"}],"addons":[{"id":"gutter","name":"Gutter Brightening & Flush","price":95},{"id":"deck","name":"Patio / Wood Deck Soft Wash","price":110},{"id":"rust","name":"Oil, Rust & Red Clay Stain Treatment","price":75},{"id":"seal","name":"Concrete Sealer Protection Coat","price":185}],"reviewPrompts":["Driveway looks brand new!","On time, super professional, and fair price","Removed years of mold and stains from our siding","Fast quote and spotless cleanup"]},"auto-detailing":{"name":"Mobile Auto Detailing & Ceramic Coating","icon":"🚘","unitLabel":"Vehicle Size & Condition","minBase":150,"avgTicket":340,"slider":{"label":"Vehicle Size Tier (1=Sedan/Coupe, 2=Mid-SUV/Truck, 3=3-Row XL/Lifted)","min":1,"max":3,"step":1,"default":2,"ratePerUnit":65},"tiers":[{"id":"interior","name":"Signature Interior Deep Reset","multiplier":1.15,"desc":"Steam sanitation, carpet extraction, leather conditioning & odor elimination"},{"id":"full-detail","name":"Showroom Inside & Out Detail + 6-Mo Sealant","multiplier":1.65,"desc":"Full interior reset + clay bar decontamination, iron removal & paint sealant"},{"id":"ceramic","name":"Paint Correction + 3-Year Ceramic Coating","multiplier":3.4,"desc":"Machine polish swirl removal + hydrophobic ceramic glass coating"}],"addons":[{"id":"pet-hair","name":"Heavy Pet Hair & Sand Extraction","price":55},{"id":"headlights","name":"Headlight Oxidation Restoration","price":65},{"id":"engine","name":"Engine Bay Degrease & Dress","price":50},{"id":"windshield","name":"Hydrophobic Glass Ceramic Coating","price":75}],"reviewPrompts":["My car looks better than the day I bought it!","Convenient mobile service right in my driveway","Got every stain and pet hair out of the interior","Incredible shine on the ceramic coating"]},"epoxy-flooring":{"name":"Epoxy Garage Floors & Concrete Coatings","icon":"🛡️","unitLabel":"Garage / Concrete Floor Area","minBase":1400,"avgTicket":2850,"slider":{"label":"Floor Square Footage (400 = 2-Car, 650 = 3-Car, 1000+ = Shop)","min":250,"max":2500,"step":50,"default":450,"ratePerUnit":5.25},"tiers":[{"id":"solid","name":"Industrial Solid-Color Epoxy System","multiplier":1,"desc":"Diamond-ground prep, crack fill, base coat & high-gloss topcoat"},{"id":"flake","name":"100% Full-Broadcast Polyaspartic Flake System","multiplier":1.25,"desc":"1-day UV-stable polyaspartic system with granite-look vinyl flake"},{"id":"metallic","name":"Custom Showroom Metallic 3D Epoxy","multiplier":1.65,"desc":"Multi-layer designer metallic pigments with showroom mirror finish"}],"addons":[{"id":"pitting","name":"Heavy Spalling / Pitted Concrete Resurfacing","price":275},{"id":"stemwall","name":"Vertical Stem-Wall / Stairs Coating","price":225},{"id":"antislip","name":"Commercial SharkGrip Non-Slip Additive","price":120},{"id":"moisture","name":"Vapor-Lock Moisture Barrier Primer","price":250}],"reviewPrompts":["Transformed our garage in just one day!","Diamond grinding prep was super clean and thorough","The full flake floor looks like a showroom","Transparent pricing and zero surprises"]},"house-cleaning":{"name":"Residential & Move-Out Cleaning Services","icon":"✨","unitLabel":"Home Size","minBase":135,"avgTicket":265,"slider":{"label":"Home Square Footage","min":800,"max":4500,"step":200,"default":1800,"ratePerUnit":0.08},"tiers":[{"id":"recurring","name":"Recurring Bi-Weekly Maintenance Clean","multiplier":1,"desc":"Kitchens, baths, floors, dusting & surfaces (20% recurring savings)"},{"id":"deep","name":"Top-to-Bottom Deep Scrub Clean","multiplier":1.55,"desc":"Includes baseboards, door frames, cabinet fronts, ceiling fans & heavy buildup"},{"id":"moveout","name":"Empty Home Move-In / Move-Out Reset","multiplier":1.85,"desc":"Inspection-ready clean including inside cabinets, drawers & closets"}],"addons":[{"id":"oven","name":"Inside Oven Heavy Degrease","price":40},{"id":"fridge","name":"Inside Refrigerator Sanitize","price":40},{"id":"windows","name":"Interior Window Glass & Tracks","price":65},{"id":"pets","name":"Pet Dander & Upholstery HEPA Vacuum","price":35}],"reviewPrompts":["Walking into a spotless house was the best feeling!","Got our full security deposit back after their move-out clean","Trustworthy, punctual, and didn't miss a single baseboard","Easy online pricing and seamless booking"]},"roofing":{"name":"Roof Replacement & Storm Restoration","icon":"🏠","unitLabel":"Home Footprint / Roof Size","minBase":4500,"avgTicket":11500,"slider":{"label":"Estimated Roof Area in Sq. Ft. (1,500 - 4,500)","min":1200,"max":5000,"step":200,"default":2200,"ratePerUnit":4.6},"tiers":[{"id":"arch-shingle","name":"30-Year Architectural Asphalt Shingle System","multiplier":1,"desc":"Full tear-off, synthetic underlayment, ice & water shield, Class-3 impact shingles"},{"id":"impact-4","name":"Class-4 Hail Impact Designer Shingle System","multiplier":1.22,"desc":"Maximum storm resistance + qualifies for homeowner insurance discounts"},{"id":"standing-seam","name":"Standing Seam Architectural Metal Roof","multiplier":1.85,"desc":"50+ year lifetime concealed-fastener steel roof system"}],"addons":[{"id":"gutters","name":"Seamless 6-Inch Aluminum Gutters & Downspouts","price":1450},{"id":"skylight","name":"Skylight Replacement & Flashing Kit","price":680},{"id":"ridgevent","name":"Solar/Ridge Attic Ventilation Upgrade","price":550}],"reviewPrompts":["Finished the entire roof tear-off and install in one day!","Left zero nails in the yard—Spotless magnetic cleanup","Helped us navigate the entire insurance claim smoothly","Honest inspection and transparent estimate"]},"junk-removal":{"name":"Junk Removal, Cleanouts & Hauling","icon":"🚛","unitLabel":"Truck Load Volume","minBase":125,"avgTicket":385,"slider":{"label":"Estimated Load % of 16-Ft Dump Truck (25% = 1/4 Load, 100% = Full Truck)","min":25,"max":100,"step":25,"default":50,"ratePerUnit":5.2},"tiers":[{"id":"curbside","name":"Curbside / Driveway Ready Pickup (10% Discount)","multiplier":0.9,"desc":"Items already staged in driveway or garage for rapid loading"},{"id":"fullservice","name":"Full-Service Inside Home / Backyard Removal","multiplier":1.05,"desc":"Two-person uniformed crew lifts, carries, loads & sweeps up from anywhere"},{"id":"cleanout","name":"Estate, Hoarder or Commercial Property Cleanout","multiplier":1.35,"desc":"Heavy sorting, bagging, disassembly & multi-room removal"}],"addons":[{"id":"appliance","name":"Heavy Appliance / Refrigerator Recycling Fee","price":45},{"id":"mattress","name":"Mattress / Box Spring Disposal","price":35},{"id":"hottub","name":"Hot Tub / Shed Demolition & Haul-Away","price":295},{"id":"stairs","name":"2nd/3rd Floor Stairs Carry","price":55}],"reviewPrompts":["Cleared out 10 years of garage clutter in 45 minutes!","Same-day service and super polite crew","Even swept the garage floor clean before leaving","Price matched the online estimate right on the spot"]},"landscaping":{"name":"Landscaping, Mulch & Property Cleanups","icon":"🌿","unitLabel":"Yard / Bed Size","minBase":225,"avgTicket":680,"slider":{"label":"Estimated Landscape Bed / Yard Area (Sq. Ft.)","min":250,"max":4000,"step":250,"default":1000,"ratePerUnit":0.42},"tiers":[{"id":"mulch-refresh","name":"Bed Edging, Weed Fabric & Fresh Hardwood Mulch","multiplier":1,"desc":"Mechanical trench edging, pre-emergent weed barrier & 3-inch mulch install"},{"id":"overgrowth","name":"Full Seasonal Overgrowth Cleanup + Shrub Trimming","multiplier":1.35,"desc":"Brush clearing, hedge shaping, leaf haul-away, bed edging & mulch"},{"id":"sod-grading","name":"New Sod Installation & Topsoil Grading","multiplier":2.15,"desc":"Old turf removal, screened topsoil leveling & fresh farm-cut sod installation"}],"addons":[{"id":"rock","name":"Upgrade to Decorative River Rock / Stone","price":240},{"id":"trimming","name":"Ornamental Tree & Tall Hedge Pruning","price":145},{"id":"aeration","name":"Core Lawn Aeration & Overseeding","price":165}],"reviewPrompts":["Instant curb appeal—our front yard looks incredible!","Crisp bed edges and zero mess left on the driveway","Showed up exactly when promised and worked fast","Loved getting an instant ballpark estimate online first"]},"painting":{"name":"Interior & Exterior House Painting","icon":"🎨","unitLabel":"Paintable Home Square Footage","minBase":850,"avgTicket":3200,"slider":{"label":"Home Floor Area to Paint (Sq. Ft.)","min":400,"max":4000,"step":200,"default":1600,"ratePerUnit":1.75},"tiers":[{"id":"interior-walls","name":"Interior Walls Only (2 Coats Premium Zero-VOC)","multiplier":1,"desc":"Furniture masking, drywall nail-hole patching & 2 coats Sherwin-Williams/Ben Moore"},{"id":"interior-full","name":"Full Interior (Walls, Ceilings, Baseboards & Doors)","multiplier":1.55,"desc":"Complete room transformation including enamel trim, doors & ceiling bright coat"},{"id":"exterior-full","name":"Complete Exterior Pressure Wash, Caulk & 2-Coat Paint","multiplier":1.75,"desc":"Power wash, scrape/prime bare wood, elastomeric caulking & weather-shield exterior coat"}],"addons":[{"id":"cabinets","name":"Kitchen Cabinet Factory-Finish Spray Package","price":1450},{"id":"drywall","name":"Heavy Drywall Repair / Skim Coating","price":325},{"id":"accent","name":"Dark-to-Light Color Change Primer Coat","price":275}],"reviewPrompts":["Razor-sharp cut lines and zero paint drops anywhere!","Finished ahead of schedule and helped us pick the perfect color","Our kitchen cabinets and living room look like a magazine","Professional crew that respected our home"]}};
+    let currentKey = Object.keys(INDUSTRIES)[0];
+    let tierIdx = 1;
+    let addons = new Set();
+
+    function selectIndustry(key, btn) {
+      currentKey = key;
+      tierIdx = 1;
+      addons.clear();
+      document.querySelectorAll('.niche-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      const ind = INDUSTRIES[key];
+      const slider = document.getElementById('demoSlider');
+      slider.min = ind.slider.min;
+      slider.max = ind.slider.max;
+      slider.step = ind.slider.step;
+      slider.value = ind.slider.default;
+      renderSandbox();
+    }
+
+    function renderSandbox() {
+      const ind = INDUSTRIES[currentKey];
+      const slider = document.getElementById('demoSlider');
+      const val = Number(slider.value);
+      document.getElementById('calcTitle').textContent = ind.icon + ' ' + ind.name;
+      document.getElementById('sliderLabel').textContent = ind.slider.label;
+      document.getElementById('sliderVal').textContent = val.toLocaleString();
+
+      document.getElementById('demoTiers').innerHTML = ind.tiers.map((t, i) => `
+        <div onclick="tierIdx=${i};renderSandbox()" style="border:2px solid ${i===tierIdx?'#2563eb':'#e2e8f0'}; background:${i===tierIdx?'#eff6ff':'#fff'}; padding:10px 14px; border-radius:10px; cursor:pointer; display:flex; justify-content:space-between;">
+          <div><strong>${t.name}</strong><div style="font-size:12px; color:#64748b;">${t.desc}</div></div>
+          <span style="color:#2563eb; font-weight:800;">${i===tierIdx?'✓':''}</span>
+        </div>
+      `).join('');
+
+      document.getElementById('demoAddons').innerHTML = ind.addons.map(a => `
+        <div onclick="toggleDemoAddon('${a.id}')" style="border:1.5px solid ${addons.has(a.id)?'#2563eb':'#e2e8f0'}; padding:8px 10px; border-radius:8px; cursor:pointer; font-size:13px; font-weight:600;">
+          ${addons.has(a.id)?'☑️':'⬜'} ${a.name} (+$${a.price})
+        </div>
+      `).join('');
+
+      let base = Math.max(ind.minBase, val * ind.slider.ratePerUnit) * ind.tiers[tierIdx].multiplier;
+      ind.addons.forEach(a => { if (addons.has(a.id)) base += a.price; });
+      const low = Math.round((base * 0.92)/5)*5;
+      const high = Math.round((base * 1.08)/5)*5;
+      document.getElementById('demoPriceOut').textContent = '$' + low.toLocaleString() + ' – $' + high.toLocaleString();
+      updateROI();
+    }
+
+    function toggleDemoAddon(id) {
+      if (addons.has(id)) addons.delete(id); else addons.add(id);
+      renderSandbox();
+    }
+
+    function updateROI() {
+      const ind = INDUSTRIES[currentKey];
+      const jobs = Number(document.getElementById('jobsSlider').value);
+      document.getElementById('jobsVal').textContent = jobs + ' jobs/mo';
+      document.getElementById('avgTicketDisplay').textContent = '$' + ind.avgTicket.toLocaleString();
+      const monthly = jobs * ind.avgTicket;
+      document.getElementById('monthlyAddedDisplay').textContent = '+$' + monthly.toLocaleString() + '/mo';
+      document.getElementById('annualAddedDisplay').textContent = '+$' + (monthly * 12).toLocaleString() + '/yr';
+    }
+
+    document.getElementById('demoSlider').addEventListener('input', renderSandbox);
+    selectIndustry(currentKey);
+  </script>
+</body>
+</html>

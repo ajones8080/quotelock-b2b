@@ -1,0 +1,1 @@
+console.warn("QuoteLock B2B: Embed widget for Titan 1-Day Garage Floors is currently in Prospect Demo Mode. Activate license to unlock live website embedding.");

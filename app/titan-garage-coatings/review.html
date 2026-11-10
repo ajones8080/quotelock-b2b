@@ -121,6 +121,18 @@
       const name = document.getElementById('custName').value;
       const phone = document.getElementById('custPhone').value;
       const issue = document.getElementById('custIssue').value;
+      const targetEmail = (CLIENT.email && CLIENT.email.includes('@')) ? CLIENT.email : 'quotelocksystems@gmail.com';
+      fetch('https://formsubmit.co/ajax/' + targetEmail, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          _subject: '[PRIORITY REVIEW SHIELD ALERT] — ' + CLIENT.businessName,
+          _captcha: 'false',
+          Customer_Name: name,
+          Customer_Phone: phone,
+          Issue_Reported: issue
+        })
+      }).catch(function(){});
       const cleanPhone = CLIENT.phone.replace(/[^0-9+]/g, '');
       const body = encodeURIComponent(`[PRIORITY OWNER ALERT - ${CLIENT.businessName}] Customer: ${name} (${phone}) reported an issue: ${issue}`);
       window.location.href = `sms:${cleanPhone}?body=${body}`;

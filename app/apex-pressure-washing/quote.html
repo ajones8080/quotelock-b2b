@@ -236,6 +236,29 @@
       updateCalculation();
       document.getElementById('leadGate').style.display = 'none';
       document.getElementById('resultBox').style.display = 'block';
+
+      if (!IS_DEMO) {
+        const q = computeQuote();
+        const targetEmail = (CLIENT.email && CLIENT.email.includes('@')) ? CLIENT.email : 'quotelocksystems@gmail.com';
+        const payload = {
+          _subject: 'New Instant Quote Lead (' + '$' + q.low + '-$' + q.high + ') — ' + CLIENT.businessName,
+          _captcha: 'false',
+          Business: CLIENT.businessName,
+          Customer_Name: document.getElementById('leadName').value,
+          Customer_Phone: document.getElementById('leadPhone').value,
+          Property_Address: document.getElementById('leadAddress').value,
+          Timeline: document.getElementById('leadTimeline').value,
+          Selected_Package: q.tier.name,
+          Scope_Size: q.units + ' (' + INDUSTRY.unitLabel + ')',
+          Add_Ons: q.addonNames.length ? q.addonNames.join(', ') : 'None',
+          Estimated_Price_Range: '$' + q.low.toLocaleString() + ' - $' + q.high.toLocaleString()
+        };
+        fetch('https://formsubmit.co/ajax/' + targetEmail, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(payload)
+        }).catch(function(){});
+      }
     });
 
     sliderDisplay.textContent = Number(slider.value).toLocaleString();

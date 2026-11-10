@@ -69,13 +69,47 @@
       <h2 style="font-size:28px; font-weight:900; margin:10px 0;">Activate This Exact System for Apex Exterior & Pressure Washing Today</h2>
       <p style="color:#cbd5e1; max-width:620px; margin:0 auto 14px;">We remove the demo preview lock, calibrate your exact square-footage rates, connect leads directly to <strong>(512) 555-0148</strong>, and send your printable QR review cards within 24 hours.</p>
       <div>
-        <a href="mailto:quotelocksystems@gmail.com?subject=Activate%20QuoteLock%20for%20Apex%20Exterior%20%26%20Pressure%20Washing" class="cta-btn">✅ Unlock Full System ($249 Setup + $49/mo)</a>
-        <a href="sms:5550192834?body=Hi%2C%20I%20just%20tested%20the%20live%20calculator%20demo%20for%20Apex%20Exterior%20%26%20Pressure%20Washing%20and%20want%20to%20unlock%20it." class="cta-btn-secondary">📲 Text Us to Unlock: (555) 019-2834</a>
+        <button type="button" onclick="openOrderModal('Managed Setup ($249 + $49/mo)')" class="cta-btn" style="border:none; cursor:pointer;">✅ Unlock Full System ($249 Setup + $49/mo)</button>
+        <button type="button" onclick="openOrderModal('Lifetime Buyout ($399 One-Time)')" class="cta-btn-secondary" style="border:none; cursor:pointer;">⚡ Or Unlock Lifetime Buyout ($399)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- On-Page Activation Modal -->
+  <div id="orderModal" style="display:none; position:fixed; inset:0; z-index:99999; background:rgba(2,6,23,0.85); align-items:center; justify-content:center; padding:16px;">
+    <div style="background:#1e293b; border:2px solid #3b82f6; border-radius:18px; max-width:520px; width:100%; padding:28px; position:relative; color:#f8fafc;">
+      <button type="button" onclick="closeOrderModal()" style="position:absolute; top:14px; right:16px; background:none; border:none; color:#94a3b8; font-size:22px; cursor:pointer;">✕</button>
+      <div style="font-size:12px; font-weight:800; color:#38bdf8; text-transform:uppercase;">24-Hour Turnkey Activation</div>
+      <h3 style="font-size:22px; font-weight:900; margin:6px 0 4px;">Unlock System for Apex Exterior & Pressure Washing</h3>
+      <p id="selectedPlanLabel" style="font-size:14px; color:#4ade80; font-weight:700; margin-bottom:16px;"></p>
+      <form action="https://formsubmit.co/quotelocksystems@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="New QuoteLock Activation Request — Apex Exterior & Pressure Washing" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="Selected_Package" id="modalPlanInput" value="" />
+        <input type="hidden" name="Business_Name" value="Apex Exterior & Pressure Washing" />
+        <div style="display:grid; gap:12px;">
+          <input name="Contact_Name" required placeholder="Your Name *" style="width:100%; padding:12px; border-radius:8px; border:1px solid #475569; background:#0f172a; color:#fff; font-size:14px;" />
+          <input name="Phone" required type="tel" value="(512) 555-0148" placeholder="Best Mobile Phone for Leads *" style="width:100%; padding:12px; border-radius:8px; border:1px solid #475569; background:#0f172a; color:#fff; font-size:14px;" />
+          <input name="Email" required type="email" placeholder="Your Best Email Address *" style="width:100%; padding:12px; border-radius:8px; border:1px solid #475569; background:#0f172a; color:#fff; font-size:14px;" />
+          <textarea name="Pricing_Notes" rows="3" placeholder="Any adjustments to the calculator prices or packages? (Optional)" style="width:100%; padding:12px; border-radius:8px; border:1px solid #475569; background:#0f172a; color:#fff; font-size:14px;"></textarea>
+          <button type="submit" style="width:100%; background:#22c55e; color:#052e16; border:none; padding:14px; border-radius:10px; font-size:16px; font-weight:900; cursor:pointer;">🚀 Submit Activation Request Now →</button>
+        </div>
+      </form>
+      <div style="margin-top:14px; text-align:center; font-size:12px; color:#94a3b8;">
+        Or email directly: <a href="https://mail.google.com/mail/?view=cm&fs=1&to=quotelocksystems@gmail.com&su=Activate%20QuoteLock%20for%20Apex%20Exterior%20%26%20Pressure%20Washing" target="_blank" style="color:#38bdf8; font-weight:700;">Open in Gmail ↗</a> (quotelocksystems@gmail.com)
       </div>
     </div>
   </div>
 
   <script>
+    function openOrderModal(plan) {
+      document.getElementById('selectedPlanLabel').textContent = 'Selected Plan: ' + plan;
+      document.getElementById('modalPlanInput').value = plan;
+      document.getElementById('orderModal').style.display = 'flex';
+    }
+    function closeOrderModal() {
+      document.getElementById('orderModal').style.display = 'none';
+    }
     function switchView(mode) {
       const frame = document.getElementById('previewFrame');
       document.getElementById('btnQuote').classList.toggle('active', mode === 'quote');

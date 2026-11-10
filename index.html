@@ -140,33 +140,24 @@
   </section>
 
   <section class="section" id="pricing">
-    <h2 class="section-title">Simple, High-ROI Installation Packages</h2>
+    <h2 class="section-title">Simple, Turnkey Installation Package</h2>
     <p class="section-sub">Compare to ResponsiBid ($179/mo) + NiceJob ($75/mo) = $254/month.</p>
-    <div class="pricing-grid">
+    <div style="max-width: 520px; margin: 0 auto;">
       <div class="price-card featured">
-        <div style="font-size:12px; font-weight:800; color:#38bdf8; text-transform:uppercase;">Most Popular • Managed Turnkey</div>
-        <div style="font-size:22px; font-weight:800; margin-top:6px;">Done-For-You Setup + Hosting</div>
-        <div class="price-num">$249 <span style="font-size:16px; font-weight:500; color:#94a3b8;">setup + $49/mo</span></div>
+        <div style="font-size:12px; font-weight:800; color:#38bdf8; text-transform:uppercase;">All-In-One Managed System • Cancel Anytime</div>
+        <div style="font-size:24px; font-weight:800; margin-top:6px;">Done-For-You Setup + 24/7 Hosting</div>
+        <div class="price-num">$249 <span style="font-size:16px; font-weight:500; color:#94a3b8;">one-time setup + $49/mo</span></div>
         <ul class="ul">
           <li>✓ Custom Instant-Quote Calculator calibrated to your exact pricing</li>
           <li>✓ 1-Line Website Embed Widget + Standalone Google Profile Link</li>
           <li>✓ 5-Star Google Review Booster + Private Complaint Shield</li>
           <li>✓ Printable Counter / Truck QR Code Review Cards</li>
-          <li>✓ Instant SMS & Email Lead Notifications + Unlimited Hosting</li>
+          <li>✓ Instant SMS & Background Email Lead Notifications + Unlimited Hosting</li>
         </ul>
         <button type="button" onclick="openAgencyOrderModal('Managed Turnkey Setup ($249 Setup + $49/mo)')" class="btn-primary" style="width:100%; border:none; cursor:pointer;">Claim Your 24-Hour Installation →</button>
-      </div>
-      <div class="price-card">
-        <div style="font-size:12px; font-weight:800; color:#94a3b8; text-transform:uppercase;">Zero Monthly Fees</div>
-        <div style="font-size:22px; font-weight:800; margin-top:6px;">Lifetime License Buyout</div>
-        <div class="price-num">$399 <span style="font-size:16px; font-weight:500; color:#94a3b8;">one-time payment</span></div>
-        <ul class="ul">
-          <li>✓ Everything in the Managed Turnkey Package</li>
-          <li>✓ Zero recurring monthly fees ever</li>
-          <li>✓ Full source files + lifetime hosted link included</li>
-          <li>✓ 2 Free annual pricing updates included</li>
-        </ul>
-        <button type="button" onclick="openAgencyOrderModal('Lifetime License Buyout ($399 One-Time)')" class="btn-primary" style="width:100%; border:none; cursor:pointer; background:#3b82f6; color:#fff;">Order Lifetime Buyout →</button>
+        <div style="text-align:center; margin-top:12px;">
+          <a href="https://buy.stripe.com/fZu3cxa6E8Q4gkxbgJfMA00" target="_blank" style="font-size:13px; color:#38bdf8; font-weight:700; text-decoration:none;">Or Go Straight to Secure Stripe Checkout ↗</a>
+        </div>
       </div>
     </div>
   </section>
@@ -198,19 +189,22 @@
             <option value="Other Local Service Trade">Other Local Service Trade</option>
           </select>
           <textarea name="Notes_Or_Website" rows="2" placeholder="Your Website URL or Google Business Profile Link (Optional)" style="width:100%; padding:12px; border-radius:8px; border:1px solid #475569; background:#0f172a; color:#fff; font-size:14px;"></textarea>
-          <button type="submit" id="agencySubmitBtn" style="width:100%; background:#22c55e; color:#052e16; border:none; padding:14px; border-radius:10px; font-size:16px; font-weight:900; cursor:pointer;">🚀 Submit Order & Start 24-Hr Setup →</button>
+          <button type="submit" id="agencySubmitBtn" style="width:100%; background:#22c55e; color:#052e16; border:none; padding:14px; border-radius:10px; font-size:16px; font-weight:900; cursor:pointer;">🚀 Save Setup Info & Proceed to Checkout →</button>
         </div>
       </form>
       <div id="agencyOrderSuccess" style="display:none; background:#064e3b; border:1px solid #10b981; padding:18px; border-radius:12px; text-align:center; margin-top:10px;">
-        <div style="font-size:20px; font-weight:900; color:#4ade80; margin-bottom:6px;">✅ Order Request Submitted!</div>
-        <p style="font-size:13px; color:#d1fae5; margin-bottom:14px;">Your installation request has been sent to our team (quotelocksystems@gmail.com). We will reach out within 24 hours with your custom live setup!</p>
-        <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
-          <a id="agencyGmailBackup" href="#" target="_blank" style="background:#3b82f6; color:#fff; text-decoration:none; padding:10px 16px; border-radius:8px; font-size:13px; font-weight:800;">⚡ Send Priority Copy via Gmail ↗</a>
-          <button type="button" onclick="closeAgencyOrderModal()" style="background:#1e293b; color:#fff; border:1px solid #475569; padding:10px 16px; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer;">Return to Page</button>
+        <div style="font-size:20px; font-weight:900; color:#4ade80; margin-bottom:6px;">✅ Setup Info Saved!</div>
+        <p style="font-size:13px; color:#d1fae5; margin-bottom:14px;">Complete your secure activation payment on Stripe below to start your 24-hour installation:</p>
+        <div style="display:grid; gap:10px;">
+          <a href="https://buy.stripe.com/fZu3cxa6E8Q4gkxbgJfMA00" target="_blank" style="display:block; background:#22c55e; color:#052e16; text-decoration:none; padding:14px 16px; border-radius:10px; font-size:15px; font-weight:900;">💳 Complete Payment on Stripe ($249 + $49/mo) →</a>
+          <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:4px;">
+            <a id="agencyGmailBackup" href="#" target="_blank" style="color:#38bdf8; text-decoration:none; font-size:12px; font-weight:700;">⚡ Send Priority Copy via Gmail ↗</a>
+            <button type="button" onclick="closeAgencyOrderModal()" style="background:none; color:#94a3b8; border:none; font-size:12px; cursor:pointer;">Close Window</button>
+          </div>
         </div>
       </div>
       <div style="margin-top:14px; text-align:center; font-size:12px; color:#94a3b8;">
-        Prefer direct email? <a href="https://mail.google.com/mail/?view=cm&fs=1&to=quotelocksystems@gmail.com&su=Order%20QuoteLock%20B2B%20System" target="_blank" style="color:#38bdf8; font-weight:700;">Click to Open in Gmail ↗</a> (quotelocksystems@gmail.com)
+        Ready to pay immediately? <a href="https://buy.stripe.com/fZu3cxa6E8Q4gkxbgJfMA00" target="_blank" style="color:#4ade80; font-weight:800;">Go Straight to Stripe Checkout ↗</a> • Or <a href="https://mail.google.com/mail/?view=cm&fs=1&to=quotelocksystems@gmail.com&su=Order%20QuoteLock%20B2B%20System" target="_blank" style="color:#38bdf8; font-weight:700;">Email Us ↗</a>
       </div>
     </div>
   </div>

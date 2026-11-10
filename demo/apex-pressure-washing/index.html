@@ -82,9 +82,10 @@
       <div style="font-size:12px; font-weight:800; color:#38bdf8; text-transform:uppercase;">24-Hour Turnkey Activation</div>
       <h3 style="font-size:22px; font-weight:900; margin:6px 0 4px;">Unlock System for Apex Exterior & Pressure Washing</h3>
       <p id="selectedPlanLabel" style="font-size:14px; color:#4ade80; font-weight:700; margin-bottom:16px;"></p>
-      <form action="https://formsubmit.co/quotelocksystems@gmail.com" method="POST">
+      <form id="demoOrderForm" action="https://formsubmit.co/quotelocksystems@gmail.com" method="POST" onsubmit="handleOrderSubmit(event, this)">
         <input type="hidden" name="_subject" value="New QuoteLock Activation Request — Apex Exterior & Pressure Washing" />
         <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_next" value="https://ajones8080.github.io/quotelock-b2b/demo/apex-pressure-washing/index.html" />
         <input type="hidden" name="Selected_Package" id="modalPlanInput" value="" />
         <input type="hidden" name="Business_Name" value="Apex Exterior & Pressure Washing" />
         <div style="display:grid; gap:12px;">
@@ -92,9 +93,14 @@
           <input name="Phone" required type="tel" value="(512) 555-0148" placeholder="Best Mobile Phone for Leads *" style="width:100%; padding:12px; border-radius:8px; border:1px solid #475569; background:#0f172a; color:#fff; font-size:14px;" />
           <input name="Email" required type="email" placeholder="Your Best Email Address *" style="width:100%; padding:12px; border-radius:8px; border:1px solid #475569; background:#0f172a; color:#fff; font-size:14px;" />
           <textarea name="Pricing_Notes" rows="3" placeholder="Any adjustments to the calculator prices or packages? (Optional)" style="width:100%; padding:12px; border-radius:8px; border:1px solid #475569; background:#0f172a; color:#fff; font-size:14px;"></textarea>
-          <button type="submit" style="width:100%; background:#22c55e; color:#052e16; border:none; padding:14px; border-radius:10px; font-size:16px; font-weight:900; cursor:pointer;">🚀 Submit Activation Request Now →</button>
+          <button type="submit" id="demoSubmitBtn" style="width:100%; background:#22c55e; color:#052e16; border:none; padding:14px; border-radius:10px; font-size:16px; font-weight:900; cursor:pointer;">🚀 Submit Activation Request Now →</button>
         </div>
       </form>
+      <div id="demoOrderSuccess" style="display:none; background:#064e3b; border:1px solid #10b981; padding:18px; border-radius:12px; text-align:center; margin-top:10px;">
+        <div style="font-size:20px; font-weight:900; color:#4ade80; margin-bottom:6px;">✅ Activation Request Received!</div>
+        <p style="font-size:13px; color:#d1fae5; margin-bottom:14px;">We have logged your request for <strong>Apex Exterior & Pressure Washing</strong> and will reach out to confirm your setup.</p>
+        <a id="demoGmailBackup" href="#" target="_blank" style="display:inline-block; background:#3b82f6; color:#fff; text-decoration:none; padding:10px 18px; border-radius:8px; font-size:13px; font-weight:800;">⚡ Optional: Send Priority Copy via Gmail ↗</a>
+      </div>
       <div style="margin-top:14px; text-align:center; font-size:12px; color:#94a3b8;">
         Or email directly: <a href="https://mail.google.com/mail/?view=cm&fs=1&to=quotelocksystems@gmail.com&su=Activate%20QuoteLock%20for%20Apex%20Exterior%20%26%20Pressure%20Washing" target="_blank" style="color:#38bdf8; font-weight:700;">Open in Gmail ↗</a> (quotelocksystems@gmail.com)
       </div>
@@ -105,10 +111,33 @@
     function openOrderModal(plan) {
       document.getElementById('selectedPlanLabel').textContent = 'Selected Plan: ' + plan;
       document.getElementById('modalPlanInput').value = plan;
+      document.getElementById('demoOrderForm').style.display = 'block';
+      document.getElementById('demoOrderSuccess').style.display = 'none';
       document.getElementById('orderModal').style.display = 'flex';
     }
     function closeOrderModal() {
       document.getElementById('orderModal').style.display = 'none';
+    }
+    function handleOrderSubmit(e, form) {
+      e.preventDefault();
+      var btn = document.getElementById('demoSubmitBtn');
+      btn.textContent = 'Sending Request...';
+      btn.disabled = true;
+      var data = new FormData(form);
+      var obj = {};
+      data.forEach(function(v, k) { obj[k] = v; });
+      var bodyLines = Object.keys(obj).filter(function(k){ return k[0] !== '_'; }).map(function(k){ return k.replace(/_/g, ' ') + ': ' + obj[k]; }).join('\n');
+      document.getElementById('demoGmailBackup').href = 'https://mail.google.com/mail/?view=cm&fs=1&to=quotelocksystems@gmail.com&su=' + encodeURIComponent(obj._subject || 'QuoteLock Order') + '&body=' + encodeURIComponent(bodyLines);
+      fetch('https://formsubmit.co/ajax/quotelocksystems@gmail.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(obj)
+      }).finally(function() {
+        btn.textContent = '🚀 Submit Activation Request Now →';
+        btn.disabled = false;
+        form.style.display = 'none';
+        document.getElementById('demoOrderSuccess').style.display = 'block';
+      });
     }
     function switchView(mode) {
       const frame = document.getElementById('previewFrame');

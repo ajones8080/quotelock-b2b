@@ -61,14 +61,14 @@
   </style>
 </head>
 <body>
-  <div class="demo-watermark-bar">🔒 UNLICENSED DEMO PREVIEW FOR PRECISION MOBILE DETAILING & CERAMIC — CUSTOMER LEAD DELIVERY LOCKED UNTIL ACTIVATED</div>
+  <div class="demo-watermark-bar">UNLICENSED DEMO PREVIEW FOR PRECISION MOBILE DETAILING & CERAMIC — CUSTOMER LEAD DELIVERY LOCKED UNTIL ACTIVATED</div>
   <div class="container">
     <div class="header">
-      <div class="badge">🚘 30-Second Instant Estimate</div>
+      <div class="badge">30-Second Instant Estimate</div>
       <h1>Precision Mobile Detailing & Ceramic</h1>
       <p>Serving Scottsdale, AZ & Surrounding Areas • Instant Ballpark Quote</p>
     </div>
-    <div class="offer-banner">🎁 Special Online Bonus: FREE Windshield Hydrophobic Coating ($75 Value) With Any Full Detail or Ceramic Package</div>
+    <div class="offer-banner">Special Online Bonus: FREE Windshield Hydrophobic Coating ($75 Value) With Any Full Detail or Ceramic Package</div>
     <div class="body">
       <div class="step-label">Step 1 of 3</div>
       <div class="section-title">Vehicle Size Tier (1=Sedan/Coupe, 2=Mid-SUV/Truck, 3=3-Row XL/Lifted)</div>
@@ -89,7 +89,7 @@
       <div class="addons" id="addonContainer"></div>
 
       <div class="gate-box" id="leadGate">
-        <div style="font-weight:800; font-size:17px;">🔓 Unlock Your Instant Price Estimate & Bonus Offer</div>
+        <div style="font-weight:800; font-size:17px;">Unlock Your Instant Price Estimate & Bonus Offer</div>
         <p style="font-size:13px; color:var(--muted); margin-top:4px;">Enter your info below to view your instant price breakdown on-screen and lock in your savings:</p>
         <form id="quoteForm" class="form-grid">
           <input class="input" type="text" id="leadName" placeholder="Your Full Name *" required />
@@ -110,12 +110,12 @@
         <div style="font-size:13px; color:#065f46; font-weight:600;">Includes: FREE Windshield Hydrophobic Coating ($75 Value) With Any Full Detail or Ceramic Package</div>
         <div class="breakdown" id="quoteSummaryList"></div>
         <div class="cta-row">
-          <button type="button" onclick="triggerDemoLock()" class="btn-sms">📲 Text This Locked Quote to Precision Mobile Detailing & Ceramic (Test Demo Handoff)</button>
+          <button type="button" onclick="triggerDemoLock()" class="btn-sms">Text This Locked Quote to Precision Mobile Detailing & Ceramic (Test Demo Handoff)</button>
         </div>
         <div class="demo-lock-notice" id="demoLockNotice">
-          <strong>🔒 DEMO PROTECTION ACTIVE:</strong><br/>
+          <strong>DEMO PROTECTION ACTIVE:</strong><br/>
           Because this calculator is currently in <strong>Unlicensed Preview Mode</strong>, homeowner leads are blocked from routing to <strong>(480) 555-0192</strong>.<br/><br/>
-          ✅ <strong>Once activated for Precision Mobile Detailing & Ceramic:</strong> This red watermark is removed, and every homeowner's Name, Phone Number, Address, and Locked Price Breakdown is texted straight to your phone ((480) 555-0192) in real time!
+          <strong>Once activated for Precision Mobile Detailing & Ceramic:</strong> This red watermark is removed, and every homeowner's Name, Phone Number, Address, and Locked Price Breakdown is texted straight to your phone ((480) 555-0192) in real time!
         </div>
       </div>
     </div>
@@ -125,7 +125,7 @@
   </div>
 
   <script>
-    const INDUSTRY = {"name":"Mobile Auto Detailing & Ceramic Coating","icon":"🚘","unitLabel":"Vehicle Size & Condition","minBase":150,"avgTicket":340,"slider":{"label":"Vehicle Size Tier (1=Sedan/Coupe, 2=Mid-SUV/Truck, 3=3-Row XL/Lifted)","min":1,"max":3,"step":1,"default":2,"ratePerUnit":65},"tiers":[{"id":"interior","name":"Signature Interior Deep Reset","multiplier":1.15,"desc":"Steam sanitation, carpet extraction, leather conditioning & odor elimination"},{"id":"full-detail","name":"Showroom Inside & Out Detail + 6-Mo Sealant","multiplier":1.65,"desc":"Full interior reset + clay bar decontamination, iron removal & paint sealant"},{"id":"ceramic","name":"Paint Correction + 3-Year Ceramic Coating","multiplier":3.4,"desc":"Machine polish swirl removal + hydrophobic ceramic glass coating"}],"addons":[{"id":"pet-hair","name":"Heavy Pet Hair & Sand Extraction","price":55},{"id":"headlights","name":"Headlight Oxidation Restoration","price":65},{"id":"engine","name":"Engine Bay Degrease & Dress","price":50},{"id":"windshield","name":"Hydrophobic Glass Ceramic Coating","price":75}],"reviewPrompts":["My car looks better than the day I bought it!","Convenient mobile service right in my driveway","Got every stain and pet hair out of the interior","Incredible shine on the ceramic coating"]};
+    const INDUSTRY = {"name":"Mobile Auto Detailing & Ceramic Coating","icon":"","unitLabel":"Vehicle Size & Condition","minBase":150,"avgTicket":340,"slider":{"label":"Vehicle Size Tier (1=Sedan/Coupe, 2=Mid-SUV/Truck, 3=3-Row XL/Lifted)","min":1,"max":3,"step":1,"default":2,"ratePerUnit":65},"tiers":[{"id":"interior","name":"Signature Interior Deep Reset","multiplier":1.15,"desc":"Steam sanitation, carpet extraction, leather conditioning & odor elimination"},{"id":"full-detail","name":"Showroom Inside & Out Detail + 6-Mo Sealant","multiplier":1.65,"desc":"Full interior reset + clay bar decontamination, iron removal & paint sealant"},{"id":"ceramic","name":"Paint Correction + 3-Year Ceramic Coating","multiplier":3.4,"desc":"Machine polish swirl removal + hydrophobic ceramic glass coating"}],"addons":[{"id":"pet-hair","name":"Heavy Pet Hair & Sand Extraction","price":55},{"id":"headlights","name":"Headlight Oxidation Restoration","price":65},{"id":"engine","name":"Engine Bay Degrease & Dress","price":50},{"id":"windshield","name":"Hydrophobic Glass Ceramic Coating","price":75}],"reviewPrompts":["My car looks better than the day I bought it!","Convenient mobile service right in my driveway","Got every stain and pet hair out of the interior","Incredible shine on the ceramic coating"]};
     const CLIENT = {"slug":"precision-mobile-detail","businessName":"Precision Mobile Detailing & Ceramic","industry":"auto-detailing","city":"Scottsdale, AZ","phone":"(480) 555-0192","email":"book@precisiondetail-demo.com","website":"https://precisiondetail-demo.com","currentRating":4.7,"currentReviews":41,"competitorName":"Desert Luxe Auto Spa","competitorRating":4.9,"competitorReviews":112,"googleReviewUrl":"https://search.google.com/local/writereview?placeid=DEMO_PLACE_ID","priceMultiplier":1.05,"primaryColor":"#4f46e5","discountOffer":"FREE Windshield Hydrophobic Coating ($75 Value) With Any Full Detail or Ceramic Package","status":"prospect"};
     const MULTIPLIER = 1.05;
     const IS_DEMO = true;
@@ -145,7 +145,7 @@
             <div class="tier-name">${t.name}</div>
             <div class="tier-desc">${t.desc}</div>
           </div>
-          <div style="font-weight:800; color:var(--primary);">${idx === selectedTierIndex ? '✓ Selected' : 'Select'}</div>
+          <div style="font-weight:800; color:var(--primary);">${idx === selectedTierIndex ? 'Selected' : 'Select'}</div>
         </div>
       `).join('');
 

@@ -8,7 +8,7 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     body { background: #0f172a; color: #f8fafc; line-height: 1.5; }
     .top-bar { background: linear-gradient(90deg, #2563eb, #4f46e5); color: #fff; text-align: center; padding: 12px 16px; font-size: 14px; font-weight: 700; }
-    .wrap { max-width: 1120px; margin: 0 auto; padding: 36px 20px; }
+    .wrap { max-width: 1240px; margin: 0 auto; padding: 36px 20px; }
     .hero { text-align: center; max-width: 820px; margin: 0 auto 36px; }
     .hero h1 { font-size: 36px; font-weight: 900; line-height: 1.2; margin-bottom: 14px; }
     .hero p { font-size: 18px; color: #94a3b8; }
@@ -20,7 +20,18 @@
     .preview-tabs { display: flex; justify-content: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
     .tab-btn { background: #1e293b; color: #cbd5e1; border: 2px solid #334155; padding: 12px 22px; border-radius: 999px; font-size: 15px; font-weight: 800; cursor: pointer; }
     .tab-btn.active { background: #2563eb; color: #fff; border-color: #3b82f6; }
-    .iframe-shell { background: #f8fafc; border-radius: 20px; overflow: hidden; border: 4px solid #334155; height: 780px; margin-bottom: 40px; }
+    .workspace-grid { display: grid; grid-template-columns: 460px 1fr; gap: 24px; align-items: start; margin-bottom: 40px; }
+    .workspace-grid.single-col { grid-template-columns: 1fr; max-width: 780px; margin-left: auto; margin-right: auto; }
+    @media (max-width: 1024px) { .workspace-grid { grid-template-columns: 1fr; } }
+    .calibrator-card { background: #1e293b; border: 2px solid #3b82f6; border-radius: 20px; padding: 22px; max-height: 820px; overflow-y: auto; }
+    .cal-section { border-top: 1px solid #334155; padding-top: 14px; margin-top: 14px; }
+    .cal-label { display: block; font-size: 12px; font-weight: 700; color: #cbd5e1; margin-bottom: 4px; }
+    .cal-input { width: 100%; padding: 9px 11px; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: #fff; font-size: 13px; }
+    .cal-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+    .cal-item-box { background: #0f172a; border: 1px solid #334155; border-radius: 10px; padding: 10px; margin-bottom: 8px; }
+    .cal-mini-btn { background: #334155; color: #e2e8f0; border: none; padding: 6px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer; }
+    .cal-mini-btn:hover { background: #475569; }
+    .iframe-shell { background: #f8fafc; border-radius: 20px; overflow: hidden; border: 4px solid #334155; height: 820px; }
     .iframe-shell iframe { width: 100%; height: 100%; border: none; }
     .cta-box { background: linear-gradient(135deg, #1e293b, #0f172a); border: 2px solid #3b82f6; border-radius: 20px; padding: 36px; text-align: center; max-width: 780px; margin: 0 auto; }
     .cta-btn { display: inline-block; background: #22c55e; color: #052e16; text-decoration: none; padding: 16px 32px; border-radius: 12px; font-size: 18px; font-weight: 900; margin: 16px 8px 0; }
@@ -34,7 +45,7 @@
   <div class="wrap">
     <div class="hero">
       <h1>We Built a 30-Second Instant Price Estimator & 5-Star Review Shield for <span style="color:#38bdf8;">Precision Mobile Detailing & Ceramic</span></h1>
-      <p>Stop losing homeowners who leave your site without calling, and automatically turn every finished job in Scottsdale, AZ into a 5-star Google review.</p>
+      <p>Test your live calculator below and use the <strong>Live Shop Price Calibrator</strong> to dial in the exact rates, packages, and add-ons your shop charges.</p>
     </div>
 
     <div class="audit-grid">
@@ -56,21 +67,80 @@
     </div>
 
     <div class="preview-tabs">
-      <button class="tab-btn active" id="btnQuote" onclick="switchView('quote')">1. Test Your Live Instant-Quote Calculator</button>
+      <button class="tab-btn active" id="btnQuote" onclick="switchView('quote')">1. Test & Calibrate Your Instant-Quote Calculator</button>
       <button class="tab-btn" id="btnReview" onclick="switchView('review')">2. Test Your 5-Star Review Shield & QR Card</button>
     </div>
 
-    <div class="iframe-shell">
-      <iframe id="previewFrame" src="../../app/precision-mobile-detail/quote.html"></iframe>
+    <div class="workspace-grid" id="workspaceGrid">
+      <!-- Live Customer-Facing Price Calibrator -->
+      <div class="calibrator-card" id="calibratorPanel">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <span style="font-size:11px; font-weight:800; color:#38bdf8; text-transform:uppercase; letter-spacing:0.05em;">Live Price Calibrator</span>
+          <button type="button" class="cal-mini-btn" onclick="resetCalibration()">Reset Defaults</button>
+        </div>
+        <h3 style="font-size:19px; font-weight:900; margin-bottom:4px;">Enter Your Actual Shop Prices</h3>
+        <p style="font-size:12px; color:#94a3b8; margin-bottom:12px;">Adjust any number below—your live calculator on the right updates immediately so you can verify its accuracy.</p>
+
+        <div class="cal-row-2">
+          <div>
+            <label class="cal-label">Minimum Job Charge ($)</label>
+            <input type="number" id="calMinBase" class="cal-input" step="5" oninput="onCalInput()" />
+          </div>
+          <div>
+            <label class="cal-label">Base Rate / Unit ($)</label>
+            <input type="number" id="calRatePerUnit" class="cal-input" step="0.01" oninput="onCalInput()" />
+          </div>
+        </div>
+
+        <div style="margin-bottom:10px;">
+          <label class="cal-label">Quote Display Mode (Range Buffer)</label>
+          <select id="calSpreadPct" class="cal-input" onchange="onCalInput()">
+            <option value="0">Exact Price Only (0% Buffer)</option>
+            <option value="5">Tight Ballpark Range (±5%)</option>
+            <option value="8">Standard Ballpark Range (±8%)</option>
+            <option value="12">Conservative Buffer (±12%)</option>
+            <option value="15">Wide Estimate Buffer (±15%)</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom:10px;">
+          <label class="cal-label">Top Promotional Offer Banner</label>
+          <input type="text" id="calDiscountOffer" class="cal-input" oninput="onCalInput()" />
+        </div>
+
+        <div class="cal-section">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <span style="font-size:12px; font-weight:800; color:#38bdf8; text-transform:uppercase;">Your Service Packages</span>
+            <button type="button" class="cal-mini-btn" onclick="addCalTier()">+ Add Package</button>
+          </div>
+          <div id="calTiersList"></div>
+        </div>
+
+        <div class="cal-section">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <span style="font-size:12px; font-weight:800; color:#38bdf8; text-transform:uppercase;">Your Add-Ons & Exact Prices ($)</span>
+            <button type="button" class="cal-mini-btn" onclick="addCalAddon()">+ Add Upsell</button>
+          </div>
+          <div id="calAddonsList"></div>
+        </div>
+
+        <div class="cal-section">
+          <button type="button" onclick="openOrderModal('Managed Setup ($249 + $49/mo) — With My Calibrated Shop Prices')" style="width:100%; background:#22c55e; color:#052e16; border:none; padding:13px; border-radius:10px; font-size:14px; font-weight:900; cursor:pointer;">Lock In These Exact Prices & Activate →</button>
+        </div>
+      </div>
+
+      <div class="iframe-shell">
+        <iframe id="previewFrame" src="../../app/precision-mobile-detail/quote.html"></iframe>
+      </div>
     </div>
 
     <div class="cta-box">
       <div style="font-size:13px; font-weight:800; color:#38bdf8; text-transform:uppercase;">Remove Demo Watermark & Unlock Live Lead Delivery</div>
       <h2 style="font-size:28px; font-weight:900; margin:10px 0;">Activate This Exact System for Precision Mobile Detailing & Ceramic Today</h2>
-      <p style="color:#cbd5e1; max-width:620px; margin:0 auto 14px;">We remove the demo preview lock, calibrate your exact square-footage rates, connect leads directly to <strong>(480) 555-0192</strong>, and send your printable QR review cards within 24 hours.</p>
+      <p style="color:#cbd5e1; max-width:620px; margin:0 auto 14px;">We remove the demo preview lock, lock in your exact calibrated rates and packages, connect leads directly to <strong>(480) 555-0192</strong>, and send your printable QR review cards within 24 hours.</p>
       <div>
-        <a href="https://buy.stripe.com/fZu3cxa6E8Q4gkxbgJfMA00" target="_blank" class="cta-btn">Activate Now via Secure Stripe Checkout ($249 Setup + $49/mo) →</a>
-        <button type="button" onclick="openOrderModal('Managed Setup ($249 + $49/mo)')" class="cta-btn-secondary" style="border:none; cursor:pointer;">Request Custom Pricing Adjustments First</button>
+        <button type="button" onclick="openOrderModal('Managed Setup ($249 + $49/mo)')" class="cta-btn" style="border:none; cursor:pointer;">Lock In My Calibrated Prices & Activate ($249 Setup + $49/mo) →</button>
+        <a href="https://buy.stripe.com/fZu3cxa6E8Q4gkxbgJfMA00" target="_blank" class="cta-btn-secondary">Or Go Straight to Stripe Checkout ↗</a>
       </div>
     </div>
     <footer style="margin-top:40px; padding-top:20px; border-top:1px solid #1e293b; text-align:center; font-size:12px; color:#64748b;">
@@ -81,27 +151,30 @@
 
   <!-- On-Page Activation Modal -->
   <div id="orderModal" style="display:none; position:fixed; inset:0; z-index:99999; background:rgba(2,6,23,0.85); align-items:center; justify-content:center; padding:16px;">
-    <div style="background:#1e293b; border:2px solid #3b82f6; border-radius:18px; max-width:520px; width:100%; padding:28px; position:relative; color:#f8fafc;">
+    <div style="background:#1e293b; border:2px solid #3b82f6; border-radius:18px; max-width:540px; width:100%; padding:28px; position:relative; color:#f8fafc; max-height:92vh; overflow-y:auto;">
       <button type="button" onclick="closeOrderModal()" style="position:absolute; top:14px; right:16px; background:none; border:none; color:#94a3b8; font-size:22px; cursor:pointer;">X</button>
       <div style="font-size:12px; font-weight:800; color:#38bdf8; text-transform:uppercase;">24-Hour Turnkey Activation</div>
       <h3 style="font-size:22px; font-weight:900; margin:6px 0 4px;">Unlock System for Precision Mobile Detailing & Ceramic</h3>
-      <p id="selectedPlanLabel" style="font-size:14px; color:#4ade80; font-weight:700; margin-bottom:16px;"></p>
+      <p id="selectedPlanLabel" style="font-size:14px; color:#4ade80; font-weight:700; margin-bottom:10px;"></p>
+      <div id="calibratedSummaryBadge" style="background:#0f172a; border:1px solid #334155; border-radius:10px; padding:10px 12px; font-size:12px; color:#cbd5e1; margin-bottom:14px;"></div>
       <form id="demoOrderForm" action="https://formsubmit.co/quotelocksystems@gmail.com" method="POST" onsubmit="handleOrderSubmit(event, this)">
         <input type="hidden" name="_subject" value="New QuoteLock Activation Request — Precision Mobile Detailing & Ceramic" />
         <input type="hidden" name="_captcha" value="false" />
         <input type="hidden" name="_next" value="https://ajones8080.github.io/quotelock-b2b/demo/precision-mobile-detail/index.html" />
         <input type="hidden" name="Selected_Package" id="modalPlanInput" value="" />
         <input type="hidden" name="Business_Name" value="Precision Mobile Detailing & Ceramic" />
+        <input type="hidden" name="Calibrated_Pricing_Summary" id="modalCalSummary" value="" />
+        <input type="hidden" name="Calibrated_Pricing_JSON" id="modalCalJson" value="" />
         <div style="display:grid; gap:12px;">
           <input name="Contact_Name" required placeholder="Your Name *" style="width:100%; padding:12px; border-radius:8px; border:1px solid #475569; background:#0f172a; color:#fff; font-size:14px;" />
           <input name="Phone" required type="tel" value="(480) 555-0192" placeholder="Best Mobile Phone for Leads *" style="width:100%; padding:12px; border-radius:8px; border:1px solid #475569; background:#0f172a; color:#fff; font-size:14px;" />
           <input name="Email" required type="email" placeholder="Your Best Email Address *" style="width:100%; padding:12px; border-radius:8px; border:1px solid #475569; background:#0f172a; color:#fff; font-size:14px;" />
-          <textarea name="Pricing_Notes" rows="3" placeholder="Any adjustments to the calculator prices or packages? (Optional)" style="width:100%; padding:12px; border-radius:8px; border:1px solid #475569; background:#0f172a; color:#fff; font-size:14px;"></textarea>
-          <button type="submit" id="demoSubmitBtn" style="width:100%; background:#22c55e; color:#052e16; border:none; padding:14px; border-radius:10px; font-size:16px; font-weight:900; cursor:pointer;">Save Details & Continue to Stripe Checkout →</button>
+          <textarea name="Pricing_Notes" rows="3" placeholder="Any additional notes or special requests? (Your calibrated prices are already attached automatically)" style="width:100%; padding:12px; border-radius:8px; border:1px solid #475569; background:#0f172a; color:#fff; font-size:14px;"></textarea>
+          <button type="submit" id="demoSubmitBtn" style="width:100%; background:#22c55e; color:#052e16; border:none; padding:14px; border-radius:10px; font-size:16px; font-weight:900; cursor:pointer;">Save Calibrated Prices & Continue to Stripe Checkout →</button>
         </div>
       </form>
       <div id="demoOrderSuccess" style="display:none; background:#064e3b; border:1px solid #10b981; padding:18px; border-radius:12px; text-align:center; margin-top:10px;">
-        <div style="font-size:20px; font-weight:900; color:#4ade80; margin-bottom:6px;">Setup Notes Saved</div>
+        <div style="font-size:20px; font-weight:900; color:#4ade80; margin-bottom:6px;">Calibrated Prices & Setup Notes Saved</div>
         <p style="font-size:13px; color:#d1fae5; margin-bottom:14px;">Click below to complete your secure activation on Stripe for <strong>Precision Mobile Detailing & Ceramic</strong>:</p>
         <div style="display:grid; gap:10px;">
           <a href="https://buy.stripe.com/fZu3cxa6E8Q4gkxbgJfMA00" target="_blank" style="display:block; background:#22c55e; color:#052e16; text-decoration:none; padding:14px 18px; border-radius:10px; font-size:15px; font-weight:900;">Complete Checkout on Stripe ($249 + $49/mo) →</a>
@@ -115,9 +188,141 @@
   </div>
 
   <script>
+    const CLIENT_SLUG = "precision-mobile-detail";
+    const DEFAULT_CAL = {"minBase":158,"ratePerUnit":68.25,"spreadPct":8,"discountOffer":"FREE Windshield Hydrophobic Coating ($75 Value) With Any Full Detail or Ceramic Package","sliderLabel":"Vehicle Size Tier (1=Sedan/Coupe, 2=Mid-SUV/Truck, 3=3-Row XL/Lifted)","unitLabel":"Vehicle Size & Condition","tiers":[{"id":"interior","name":"Signature Interior Deep Reset","desc":"Steam sanitation, carpet extraction, leather conditioning & odor elimination","multiplier":1.15},{"id":"full-detail","name":"Showroom Inside & Out Detail + 6-Mo Sealant","desc":"Full interior reset + clay bar decontamination, iron removal & paint sealant","multiplier":1.65},{"id":"ceramic","name":"Paint Correction + 3-Year Ceramic Coating","desc":"Machine polish swirl removal + hydrophobic ceramic glass coating","multiplier":3.4}],"addons":[{"id":"pet-hair","name":"Heavy Pet Hair & Sand Extraction","price":58},{"id":"headlights","name":"Headlight Oxidation Restoration","price":68},{"id":"engine","name":"Engine Bay Degrease & Dress","price":53},{"id":"windshield","name":"Hydrophobic Glass Ceramic Coating","price":79}]};
+    let calState = JSON.parse(JSON.stringify(DEFAULT_CAL));
+
+    try {
+      const saved = localStorage.getItem('ql_cal_' + CLIENT_SLUG);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed && typeof parsed === 'object') {
+          calState = Object.assign(JSON.parse(JSON.stringify(DEFAULT_CAL)), parsed);
+        }
+      }
+    } catch (e) {}
+
+    function escAttr(str) {
+      return String(str || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+    }
+
+    function renderCalibratorInputs() {
+      document.getElementById('calMinBase').value = calState.minBase;
+      document.getElementById('calRatePerUnit').value = calState.ratePerUnit;
+      document.getElementById('calSpreadPct').value = String(calState.spreadPct !== undefined ? calState.spreadPct : 8);
+      document.getElementById('calDiscountOffer').value = calState.discountOffer || '';
+
+      const tiersEl = document.getElementById('calTiersList');
+      tiersEl.innerHTML = calState.tiers.map((t, idx) => `
+        <div class="cal-item-box">
+          <div style="display:flex; gap:8px; margin-bottom:6px; align-items:center;">
+            <input class="cal-input" style="flex:1;" value="${escAttr(t.name)}" placeholder="Package Name" oninput="updateCalTier(${idx}, 'name', this.value)" />
+            <div style="width:92px;">
+              <input class="cal-input" type="number" step="0.05" value="${Number(t.multiplier || 1)}" title="Package Price Multiplier (1.0 = Base Rate)" oninput="updateCalTier(${idx}, 'multiplier', this.value)" />
+            </div>
+            ${calState.tiers.length > 1 ? `<button type="button" class="cal-mini-btn" style="background:#7f1d1d;color:#fecaca;" onclick="removeCalTier(${idx})">X</button>` : ''}
+          </div>
+          <input class="cal-input" style="font-size:12px; color:#94a3b8;" value="${escAttr(t.desc)}" placeholder="Package description / what's included" oninput="updateCalTier(${idx}, 'desc', this.value)" />
+        </div>
+      `).join('');
+
+      const addonsEl = document.getElementById('calAddonsList');
+      addonsEl.innerHTML = calState.addons.map((a, idx) => `
+        <div class="cal-item-box" style="display:flex; gap:8px; align-items:center;">
+          <input class="cal-input" style="flex:1;" value="${escAttr(a.name)}" placeholder="Add-On Name" oninput="updateCalAddon(${idx}, 'name', this.value)" />
+          <div style="width:105px; display:flex; align-items:center; gap:4px;">
+            <span style="font-size:12px; color:#94a3b8; font-weight:700;">+$</span>
+            <input class="cal-input" type="number" step="5" value="${Math.round(Number(a.price) || 0)}" oninput="updateCalAddon(${idx}, 'price', this.value)" />
+          </div>
+          <button type="button" class="cal-mini-btn" style="background:#7f1d1d;color:#fecaca;" onclick="removeCalAddon(${idx})">X</button>
+        </div>
+      `).join('');
+    }
+
+    function syncToPreview() {
+      try {
+        localStorage.setItem('ql_cal_' + CLIENT_SLUG, JSON.stringify(calState));
+      } catch (e) {}
+      const frame = document.getElementById('previewFrame');
+      if (frame && frame.contentWindow) {
+        frame.contentWindow.postMessage({ type: 'QL_CALIBRATE', pricing: calState }, '*');
+      }
+    }
+
+    function onCalInput() {
+      calState.minBase = Number(document.getElementById('calMinBase').value) || 0;
+      calState.ratePerUnit = Number(document.getElementById('calRatePerUnit').value) || 0;
+      calState.spreadPct = Number(document.getElementById('calSpreadPct').value);
+      calState.discountOffer = document.getElementById('calDiscountOffer').value;
+      syncToPreview();
+    }
+
+    function updateCalTier(idx, field, val) {
+      if (!calState.tiers[idx]) return;
+      calState.tiers[idx][field] = field === 'multiplier' ? (Number(val) || 1) : val;
+      syncToPreview();
+    }
+
+    function addCalTier() {
+      calState.tiers.push({
+        id: 'custom-tier-' + Date.now(),
+        name: 'Custom Service Package',
+        desc: 'Describe what is included in this package',
+        multiplier: 1.25
+      });
+      renderCalibratorInputs();
+      syncToPreview();
+    }
+
+    function removeCalTier(idx) {
+      if (calState.tiers.length <= 1) return;
+      calState.tiers.splice(idx, 1);
+      renderCalibratorInputs();
+      syncToPreview();
+    }
+
+    function updateCalAddon(idx, field, val) {
+      if (!calState.addons[idx]) return;
+      calState.addons[idx][field] = field === 'price' ? (Number(val) || 0) : val;
+      syncToPreview();
+    }
+
+    function addCalAddon() {
+      calState.addons.push({
+        id: 'custom-addon-' + Date.now(),
+        name: 'New Optional Upgrade',
+        price: 75
+      });
+      renderCalibratorInputs();
+      syncToPreview();
+    }
+
+    function removeCalAddon(idx) {
+      calState.addons.splice(idx, 1);
+      renderCalibratorInputs();
+      syncToPreview();
+    }
+
+    function resetCalibration() {
+      calState = JSON.parse(JSON.stringify(DEFAULT_CAL));
+      try { localStorage.removeItem('ql_cal_' + CLIENT_SLUG); } catch (e) {}
+      renderCalibratorInputs();
+      syncToPreview();
+    }
+
+    function buildCalibrationSummaryText() {
+      const tiersText = calState.tiers.map(t => t.name + ' (' + t.multiplier + 'x)').join(', ');
+      const addonsText = calState.addons.map(a => a.name + ' (+$' + a.price + ')').join(', ');
+      return 'Min Charge: $' + calState.minBase + ' | Rate/Unit: $' + calState.ratePerUnit + ' | Spread: +/-' + calState.spreadPct + '% | Packages: ' + tiersText + ' | Add-Ons: ' + (addonsText || 'None');
+    }
+
     function openOrderModal(plan) {
       document.getElementById('selectedPlanLabel').textContent = 'Selected Plan: ' + plan;
       document.getElementById('modalPlanInput').value = plan;
+      const summary = buildCalibrationSummaryText();
+      document.getElementById('calibratedSummaryBadge').innerHTML = '<strong style="color:#38bdf8;">Attached Calibrated Shop Rates:</strong><br/>' + summary;
+      document.getElementById('modalCalSummary').value = summary;
+      document.getElementById('modalCalJson').value = JSON.stringify(calState);
       document.getElementById('demoOrderForm').style.display = 'block';
       document.getElementById('demoOrderSuccess').style.display = 'none';
       document.getElementById('orderModal').style.display = 'flex';
@@ -148,12 +353,25 @@
     }
     function switchView(mode) {
       const frame = document.getElementById('previewFrame');
+      const calPanel = document.getElementById('calibratorPanel');
+      const grid = document.getElementById('workspaceGrid');
       document.getElementById('btnQuote').classList.toggle('active', mode === 'quote');
       document.getElementById('btnReview').classList.toggle('active', mode === 'review');
-      frame.src = mode === 'quote'
-        ? '../../app/precision-mobile-detail/quote.html'
-        : '../../app/precision-mobile-detail/review.html';
+      if (mode === 'quote') {
+        calPanel.style.display = 'block';
+        grid.classList.remove('single-col');
+        frame.src = '../../app/precision-mobile-detail/quote.html';
+      } else {
+        calPanel.style.display = 'none';
+        grid.classList.add('single-col');
+        frame.src = '../../app/precision-mobile-detail/review.html';
+      }
     }
+
+    document.getElementById('previewFrame').addEventListener('load', function() {
+      syncToPreview();
+    });
+    renderCalibratorInputs();
   </script>
 </body>
 </html>

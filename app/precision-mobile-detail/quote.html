@@ -35,6 +35,12 @@
     .slider-box { background: #f1f5f9; padding: 18px; border-radius: 12px; margin-bottom: 22px; }
     .slider-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
     .slider-val { font-size: 22px; font-weight: 800; color: var(--primary); }
+    .preset-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+    .preset-btn { flex: 1 1 30%; min-width: 96px; background: #fff; border: 2px solid #cbd5e1; border-radius: 10px; padding: 8px 6px; cursor: pointer; text-align: center; font-family: inherit; color: #0f172a; }
+    .preset-btn .p-label { display: block; font-size: 12.5px; font-weight: 800; line-height: 1.2; }
+    .preset-btn .p-hint { display: block; font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .preset-btn.active { border-color: var(--primary); background: #eff6ff; }
+    .preset-note { font-size: 12px; color: var(--muted); margin-top: 8px; }
     input[type="range"] { width: 100%; accent-color: var(--primary); height: 8px; cursor: pointer; }
     .tiers { display: grid; gap: 10px; margin-bottom: 22px; }
     .tier-card { border: 2px solid var(--border); border-radius: 12px; padding: 14px 16px; cursor: pointer; transition: all 0.15s; display: flex; justify-content: space-between; align-items: center; }
@@ -53,6 +59,7 @@
     .result-box { display: none; background: #ecfdf5; border: 2px solid #10b981; border-radius: 14px; padding: 24px; text-align: center; margin-top: 16px; }
     .price-range { font-size: 38px; font-weight: 900; color: #065f46; margin: 8px 0; }
     .breakdown { text-align: left; background: #fff; padding: 14px; border-radius: 10px; margin: 14px 0; font-size: 14px; border: 1px solid #a7f3d0; }
+    .disclaimer { font-size: 12px; color: #475569; background: #fff; border: 1px dashed #94a3b8; border-radius: 8px; padding: 10px 12px; margin: 10px 0; text-align: left; line-height: 1.4; }
     .cta-row { display: grid; gap: 10px; margin-top: 14px; }
     .btn-sms { background: #16a34a; color: #fff; text-decoration: none; padding: 14px; border-radius: 10px; font-weight: 800; display: block; border: none; width: 100%; font-size: 15px; cursor: pointer; }
     .btn-call { background: #0f172a; color: #fff; text-decoration: none; padding: 12px; border-radius: 10px; font-weight: 700; display: block; }
@@ -66,31 +73,37 @@
     <div class="header">
       <div class="badge">30-Second Instant Estimate</div>
       <h1>Precision Mobile Detailing & Ceramic</h1>
-      <p>Serving Scottsdale, AZ & Surrounding Areas • Instant Ballpark Quote</p>
+      <p>Serving Scottsdale, AZ & Surrounding Areas • Instant Ballpark Estimate</p>
     </div>
     <div class="offer-banner" id="offerBannerText">Special Online Bonus: FREE Windshield Hydrophobic Coating ($75 Value) With Any Full Detail or Ceramic Package</div>
     <div class="body">
-      <div class="step-label">Step 1 of 3</div>
-      <div class="section-title" id="sliderLabelText">Vehicle Size Tier (1=Sedan/Coupe, 2=Mid-SUV/Truck, 3=3-Row XL/Lifted)</div>
+      <div class="step-label">Step 1 of 4</div>
+      <div class="section-title" id="sliderLabelText">Select Your Vehicle Size</div>
       <div class="slider-box">
+        <div class="preset-row" id="presetRow"></div>
         <div class="slider-top">
           <span>Adjust Size / Scope:</span>
           <span class="slider-val" id="sliderDisplay">2</span>
         </div>
         <input type="range" id="sizeSlider" min="1" max="3" step="1" value="2" />
+        <div class="preset-note" id="presetNote" style="display:none;">Not sure? Pick the closest match above, then fine-tune with the slider.</div>
       </div>
 
-      <div class="step-label">Step 2 of 3</div>
+      <div class="step-label">Step 2 of 4</div>
       <div class="section-title">Select Service Package</div>
       <div class="tiers" id="tierContainer"></div>
 
-      <div class="step-label">Step 3 of 3</div>
+      <div class="step-label">Step 3 of 4</div>
+      <div class="section-title">Current Property Condition / Access</div>
+      <div class="tiers" id="conditionContainer"></div>
+
+      <div class="step-label">Step 4 of 4</div>
       <div class="section-title">Optional Add-Ons & Upgrades</div>
       <div class="addons" id="addonContainer"></div>
 
       <div class="gate-box" id="leadGate">
         <div style="font-weight:800; font-size:17px;">Unlock Your Instant Price Estimate & Bonus Offer</div>
-        <p style="font-size:13px; color:var(--muted); margin-top:4px;">Enter your info below to view your instant price breakdown on-screen and lock in your savings:</p>
+        <p style="font-size:13px; color:var(--muted); margin-top:4px;">Enter your info below to view your instant price breakdown on-screen and see your savings:</p>
         <form id="quoteForm" class="form-grid">
           <input class="input" type="text" id="leadName" placeholder="Your Full Name *" required />
           <input class="input" type="tel" id="leadPhone" placeholder="Mobile Phone Number (for quote copy) *" required />
@@ -109,13 +122,14 @@
         <div class="price-range" id="priceRangeText">$0 – $0</div>
         <div style="font-size:13px; color:#065f46; font-weight:600;" id="resultOfferText">Includes: FREE Windshield Hydrophobic Coating ($75 Value) With Any Full Detail or Ceramic Package</div>
         <div class="breakdown" id="quoteSummaryList"></div>
+        <div class="disclaimer" id="disclaimerText">Ballpark estimate based on customer-entered details. Final pricing is confirmed upon brief on-site inspection prior to starting work.</div>
         <div class="cta-row">
-          <button type="button" onclick="triggerDemoLock()" class="btn-sms">Text This Locked Quote to Precision Mobile Detailing & Ceramic (Test Demo Handoff)</button>
+          <button type="button" onclick="triggerDemoLock()" class="btn-sms">Text This Estimate to Precision Mobile Detailing & Ceramic (Test Demo Handoff)</button>
         </div>
         <div class="demo-lock-notice" id="demoLockNotice">
           <strong>DEMO PROTECTION ACTIVE:</strong><br/>
           Because this calculator is currently in <strong>Unlicensed Preview Mode</strong>, homeowner leads are blocked from routing to <strong>(480) 555-0192</strong>.<br/><br/>
-          <strong>Once activated for Precision Mobile Detailing & Ceramic:</strong> This red watermark is removed, and every homeowner's Name, Phone Number, Address, and Locked Price Breakdown is texted straight to your phone ((480) 555-0192) in real time!
+          <strong>Once activated for Precision Mobile Detailing & Ceramic:</strong> This red watermark is removed, and every homeowner's Name, Phone Number, Address, and Estimate Breakdown is texted straight to your phone ((480) 555-0192) in real time!
         </div>
       </div>
     </div>
@@ -125,10 +139,10 @@
   </div>
 
   <script>
-    const INDUSTRY = {"name":"Mobile Auto Detailing & Ceramic Coating","icon":"","unitLabel":"Vehicle Size & Condition","minBase":150,"avgTicket":340,"slider":{"label":"Vehicle Size Tier (1=Sedan/Coupe, 2=Mid-SUV/Truck, 3=3-Row XL/Lifted)","min":1,"max":3,"step":1,"default":2,"ratePerUnit":65},"tiers":[{"id":"interior","name":"Signature Interior Deep Reset","multiplier":1.15,"desc":"Steam sanitation, carpet extraction, leather conditioning & odor elimination"},{"id":"full-detail","name":"Showroom Inside & Out Detail + 6-Mo Sealant","multiplier":1.65,"desc":"Full interior reset + clay bar decontamination, iron removal & paint sealant"},{"id":"ceramic","name":"Paint Correction + 3-Year Ceramic Coating","multiplier":3.4,"desc":"Machine polish swirl removal + hydrophobic ceramic glass coating"}],"addons":[{"id":"pet-hair","name":"Heavy Pet Hair & Sand Extraction","price":55},{"id":"headlights","name":"Headlight Oxidation Restoration","price":65},{"id":"engine","name":"Engine Bay Degrease & Dress","price":50},{"id":"windshield","name":"Hydrophobic Glass Ceramic Coating","price":75}],"reviewPrompts":["My car looks better than the day I bought it!","Convenient mobile service right in my driveway","Got every stain and pet hair out of the interior","Incredible shine on the ceramic coating"]};
+    const INDUSTRY = {"name":"Mobile Auto Detailing & Ceramic Coating","icon":"","unitLabel":"Vehicle Size & Condition","minBase":100,"avgTicket":340,"slider":{"label":"Select Your Vehicle Size","min":1,"max":3,"step":1,"default":2,"ratePerUnit":110,"valueLabels":{"1":"Sedan / Coupe","2":"Mid-Size SUV / Pickup","3":"3-Row SUV / Lifted Truck","presets":[{"label":"Sedan / Coupe","hint":"","value":1},{"label":"Mid-Size SUV / Pickup","hint":"","value":2},{"label":"3-Row SUV / Truck","hint":"","value":3}]}},"tiers":[{"id":"interior","name":"Signature Interior Deep Reset","multiplier":1.15,"desc":"Steam sanitation, carpet extraction, leather conditioning & odor elimination"},{"id":"full-detail","name":"Showroom Inside & Out Detail + 6-Mo Sealant","multiplier":1.65,"desc":"Full interior reset + clay bar decontamination, iron removal & paint sealant"},{"id":"ceramic","name":"Paint Correction + 3-Year Ceramic Coating","multiplier":3.4,"desc":"Machine polish swirl removal + hydrophobic ceramic glass coating"}],"addons":[{"id":"pet-hair","name":"Heavy Pet Hair & Sand Extraction","price":55},{"id":"headlights","name":"Headlight Oxidation Restoration","price":65},{"id":"engine","name":"Engine Bay Degrease & Dress","price":50},{"id":"windshield","name":"Hydrophobic Glass Ceramic Coating","price":75}],"reviewPrompts":["My car looks better than the day I bought it!","Convenient mobile service right in my driveway","Got every stain and pet hair out of the interior","Incredible shine on the ceramic coating"]};
     const CLIENT = {"slug":"precision-mobile-detail","businessName":"Precision Mobile Detailing & Ceramic","industry":"auto-detailing","city":"Scottsdale, AZ","phone":"(480) 555-0192","email":"book@precisiondetail-demo.com","website":"https://precisiondetail-demo.com","currentRating":4.7,"currentReviews":41,"competitorName":"Desert Luxe Auto Spa","competitorRating":4.9,"competitorReviews":112,"googleReviewUrl":"https://search.google.com/local/writereview?placeid=DEMO_PLACE_ID","priceMultiplier":1.05,"primaryColor":"#4f46e5","discountOffer":"FREE Windshield Hydrophobic Coating ($75 Value) With Any Full Detail or Ceramic Package","status":"prospect"};
     const IS_DEMO = true;
-    let PRICING = {"minBase":158,"ratePerUnit":68.25,"spreadPct":8,"discountOffer":"FREE Windshield Hydrophobic Coating ($75 Value) With Any Full Detail or Ceramic Package","sliderLabel":"Vehicle Size Tier (1=Sedan/Coupe, 2=Mid-SUV/Truck, 3=3-Row XL/Lifted)","unitLabel":"Vehicle Size & Condition","tiers":[{"id":"interior","name":"Signature Interior Deep Reset","desc":"Steam sanitation, carpet extraction, leather conditioning & odor elimination","multiplier":1.15},{"id":"full-detail","name":"Showroom Inside & Out Detail + 6-Mo Sealant","desc":"Full interior reset + clay bar decontamination, iron removal & paint sealant","multiplier":1.65},{"id":"ceramic","name":"Paint Correction + 3-Year Ceramic Coating","desc":"Machine polish swirl removal + hydrophobic ceramic glass coating","multiplier":3.4}],"addons":[{"id":"pet-hair","name":"Heavy Pet Hair & Sand Extraction","price":58},{"id":"headlights","name":"Headlight Oxidation Restoration","price":68},{"id":"engine","name":"Engine Bay Degrease & Dress","price":53},{"id":"windshield","name":"Hydrophobic Glass Ceramic Coating","price":79}]};
+    let PRICING = {"minBase":105,"ratePerUnit":115.5,"spreadPct":8,"disclaimer":"Ballpark estimate based on customer-entered details. Final pricing is confirmed upon brief on-site inspection prior to starting work.","conditions":[{"id":"standard","name":"Standard Maintenance","desc":"Normal buildup, easy access","pct":0},{"id":"moderate","name":"Moderate Buildup / Stains","desc":"Noticeable staining, growth or buildup","pct":15},{"id":"heavy","name":"Heavy Restoration / Difficult Access","desc":"Severe buildup, steep pitch, upper floors or tight access","pct":30}],"discountOffer":"FREE Windshield Hydrophobic Coating ($75 Value) With Any Full Detail or Ceramic Package","sliderLabel":"Select Your Vehicle Size","unitLabel":"Vehicle Size & Condition","tiers":[{"id":"interior","name":"Signature Interior Deep Reset","desc":"Steam sanitation, carpet extraction, leather conditioning & odor elimination","multiplier":1.15},{"id":"full-detail","name":"Showroom Inside & Out Detail + 6-Mo Sealant","desc":"Full interior reset + clay bar decontamination, iron removal & paint sealant","multiplier":1.65},{"id":"ceramic","name":"Paint Correction + 3-Year Ceramic Coating","desc":"Machine polish swirl removal + hydrophobic ceramic glass coating","multiplier":3.4}],"addons":[{"id":"pet-hair","name":"Heavy Pet Hair & Sand Extraction","price":58},{"id":"headlights","name":"Headlight Oxidation Restoration","price":68},{"id":"engine","name":"Engine Bay Degrease & Dress","price":53},{"id":"windshield","name":"Hydrophobic Glass Ceramic Coating","price":79}]};
 
     try {
       const savedCal = localStorage.getItem('ql_cal_' + CLIENT.slug);
@@ -142,6 +156,8 @@
 
     let selectedTierIndex = Math.min(1, Math.max(0, (PRICING.tiers || []).length - 1));
     let selectedAddons = new Set();
+    let selectedConditionIndex = 0;
+    const conditionContainer = document.getElementById('conditionContainer');
 
     const slider = document.getElementById('sizeSlider');
     const sliderDisplay = document.getElementById('sliderDisplay');
@@ -155,6 +171,39 @@
       if (bannerEl) bannerEl.textContent = 'Special Online Bonus: ' + (PRICING.discountOffer || '');
       if (resultOfferEl) resultOfferEl.textContent = 'Includes: ' + (PRICING.discountOffer || '');
       if (sliderLabelEl && PRICING.sliderLabel) sliderLabelEl.textContent = PRICING.sliderLabel;
+    }
+
+    function sizeText(n) {
+      const vl = INDUSTRY.slider && INDUSTRY.slider.valueLabels;
+      return (vl && vl[String(n)]) ? vl[String(n)] : Number(n).toLocaleString();
+    }
+
+    function renderPresets() {
+      const row = document.getElementById('presetRow');
+      const note = document.getElementById('presetNote');
+      const presets = (INDUSTRY.slider && INDUSTRY.slider.presets) || [];
+      if (!row || !presets.length) return;
+      if (note) note.style.display = 'block';
+      row.innerHTML = presets.map(function(p, i) {
+        return '<button type="button" class="preset-btn" data-idx="' + i + '"><span class="p-label">' + p.label + '</span>' + (p.hint ? '<span class="p-hint">' + p.hint + '</span>' : '') + '</button>';
+      }).join('');
+      row.querySelectorAll('.preset-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          const p = presets[Number(btn.getAttribute('data-idx'))];
+          slider.value = p.value;
+          sliderDisplay.textContent = sizeText(slider.value);
+          highlightPreset();
+          updateCalculation();
+        });
+      });
+      highlightPreset();
+    }
+
+    function highlightPreset() {
+      const presets = (INDUSTRY.slider && INDUSTRY.slider.presets) || [];
+      document.querySelectorAll('#presetRow .preset-btn').forEach(function(btn, i) {
+        btn.classList.toggle('active', presets[i] && Number(presets[i].value) === Number(slider.value));
+      });
     }
 
     function renderOptions() {
@@ -172,6 +221,18 @@
         </div>
       `).join('');
 
+      const conds = PRICING.conditions || [];
+      if (selectedConditionIndex >= conds.length) selectedConditionIndex = 0;
+      conditionContainer.innerHTML = conds.map((cd, idx) => `
+        <div class="tier-card ${idx === selectedConditionIndex ? 'active' : ''}" onclick="selectCondition(${idx})">
+          <div>
+            <div class="tier-name">${cd.name}</div>
+            <div class="tier-desc">${cd.desc || ''}</div>
+          </div>
+          <div style="font-weight:800; color:var(--primary);">${idx === selectedConditionIndex ? 'Selected' : 'Select'}</div>
+        </div>
+      `).join('');
+
       addonContainer.innerHTML = PRICING.addons.map(a => `
         <label class="addon-item ${selectedAddons.has(a.id) ? 'active' : ''}">
           <input type="checkbox" ${selectedAddons.has(a.id) ? 'checked' : ''} onchange="toggleAddon('${a.id}')" />
@@ -185,6 +246,12 @@
 
     window.selectTier = function(idx) {
       selectedTierIndex = idx;
+      renderOptions();
+      updateCalculation();
+    };
+
+    window.selectCondition = function(idx) {
+      selectedConditionIndex = idx;
       renderOptions();
       updateCalculation();
     };
@@ -209,7 +276,8 @@
     });
 
     slider.addEventListener('input', () => {
-      sliderDisplay.textContent = Number(slider.value).toLocaleString();
+      sliderDisplay.textContent = sizeText(slider.value);
+      highlightPreset();
       updateCalculation();
     });
 
@@ -227,14 +295,16 @@
           addonNames.push(a.name);
         }
       });
+      const condition = (PRICING.conditions || [])[selectedConditionIndex] || { name: 'Standard Maintenance', pct: 0 };
+      subtotal = subtotal * (1 + (Number(condition.pct) || 0) / 100);
       const spread = Number(PRICING.spreadPct !== undefined ? PRICING.spreadPct : 8);
       if (spread <= 0) {
         const exact = Math.round(subtotal);
-        return { units, tier, addonNames, low: exact, high: exact, exact: true };
+        return { units, tier, condition, addonNames, low: exact, high: exact, exact: true };
       }
       const low = Math.round((subtotal * (1 - spread / 100)) / 5) * 5;
       const high = Math.round((subtotal * (1 + spread / 100)) / 5) * 5;
-      return { units, tier, addonNames, low, high, exact: false };
+      return { units, tier, condition, addonNames, low, high, exact: false };
     }
 
     function formatPriceDisplay(q) {
@@ -249,9 +319,12 @@
       const addr = document.getElementById('leadAddress').value || '';
       const timeline = document.getElementById('leadTimeline').value;
 
+      const disclaimerEl = document.getElementById('disclaimerText');
+      if (disclaimerEl && PRICING.disclaimer) disclaimerEl.textContent = PRICING.disclaimer;
       document.getElementById('quoteSummaryList').innerHTML = `
         <div><strong>Package:</strong> ${q.tier.name}</div>
-        <div><strong>Size / Scope:</strong> ${q.units.toLocaleString()} (${PRICING.unitLabel || INDUSTRY.unitLabel})</div>
+        <div><strong>Size / Scope:</strong> ${sizeText(q.units)} (${PRICING.unitLabel || INDUSTRY.unitLabel})</div>
+        <div><strong>Property Condition:</strong> ${q.condition.name}</div>
         <div><strong>Add-Ons:</strong> ${q.addonNames.length ? q.addonNames.join(', ') : 'None selected'}</div>
         <div><strong>Timeline:</strong> ${timeline}</div>
         <div><strong>Location:</strong> ${addr}</div>
@@ -259,14 +332,15 @@
 
       if (!IS_DEMO) {
         const smsBody = encodeURIComponent(
-          `Hi ${CLIENT.businessName}! I just used your online estimator:\n` +
+          `Hi ${CLIENT.businessName}! I just used your online estimator (ballpark only, subject to on-site verification):\n` +
           `• Estimate: ${priceText}\n` +
           `• Package: ${q.tier.name}\n` +
-          `• Size: ${q.units}\n` +
+          `• Size: ${sizeText(q.units)}\n` +
+          `• Property condition: ${q.condition.name}\n` +
           `• Add-ons: ${q.addonNames.join(', ') || 'None'}\n` +
           `• Name: ${name} (${addr})\n` +
           `• Timeline: ${timeline}\n` +
-          `Can we confirm availability?`
+          `Can we confirm availability and schedule a quick on-site check?`
         );
         const cleanPhone = CLIENT.phone.replace(/[^0-9+]/g, '');
         const smsBtn = document.getElementById('smsBtn');
@@ -293,9 +367,11 @@
           Property_Address: document.getElementById('leadAddress').value,
           Timeline: document.getElementById('leadTimeline').value,
           Selected_Package: q.tier.name,
-          Scope_Size: q.units + ' (' + (PRICING.unitLabel || INDUSTRY.unitLabel) + ')',
+          Scope_Size: sizeText(q.units) + ' (' + (PRICING.unitLabel || INDUSTRY.unitLabel) + ')',
+          Property_Condition: q.condition.name,
           Add_Ons: q.addonNames.length ? q.addonNames.join(', ') : 'None',
-          Estimated_Price_Range: priceText
+          Estimated_Price_Range: priceText,
+          Note: 'Ballpark estimate only; final price subject to on-site verification.'
         };
         fetch('https://formsubmit.co/ajax/' + targetEmail, {
           method: 'POST',
@@ -305,7 +381,8 @@
       }
     });
 
-    sliderDisplay.textContent = Number(slider.value).toLocaleString();
+    sliderDisplay.textContent = sizeText(slider.value);
+    renderPresets();
     renderOptions();
   </script>
 </body>
